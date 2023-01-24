@@ -21,10 +21,7 @@ def is_larger(x: str, y: str) -> bool:
             return int(x[i]) > int(y[i])
     return False
 
-#2143847412
-#2147483647
 print(reverse(-2147483412))
-              #2143847412
 print(reverse(2147483648))
 print(reverse(-2147483647))
 print(reverse(-2147483648))
