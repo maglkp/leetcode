@@ -26,19 +26,25 @@ def current_match(s: str, p: list) -> bool:
             s_ix += 1
         elif s_ix < len(s) and pattern_segment == s[s_ix]:
             s_ix += 1
-        #else:
+        # else:
         #    return False
 
     return s_ix == len(s)
 
 
-def main_f_loop(s: str, p: list, ix: int):
-    pass
+def main_f_loop(s: str, p: list, ix: int) -> bool:
+    return False
     # find ix with *
     # if not found check match
     # expand and call main_f_loop with ix+1
     # if prev call returned false, decrement till 0 and return
 
+
+def findIxOfNextStar(p: list, start_ix) -> int:
+    for ix, v in enumerate(p, start_ix):
+        if type(v) is tuple:
+            return ix
+    return -1
 
 def translate_regex_to_single_tokens(s: str) -> list:
     out = []
@@ -65,6 +71,11 @@ def translate_regex_to_single_tokens(s: str) -> list:
 # print(current_match("abc", ['.', '.', 'c']))
 # print(current_match("ab", ['a', 'b', 'c']))
 # print(current_match("abc", ['a', 'b']))
+
+print(findIxOfNextStar([('a', 1), ('b', 1), ('c', 1)], 0))
+print(findIxOfNextStar([('a', 1), ('b', 1), ('c', 1)], 1))
+print(findIxOfNextStar(['a', 'b', ('c', 1)], 0))
+print(findIxOfNextStar(['a', 'b', 'c'], 0))
 
 print(current_match("abc", [('a', 1), ('b', 1), ('c', 1)]))
 print(current_match("abc", [('a', 1), ('b', 1), ('c', 1), ('d', 0)]))
