@@ -33,11 +33,15 @@ def current_match(s: str, p: list) -> bool:
 
 
 def main_f_loop(s: str, p: list, ix: int) -> bool:
-    return False
     # find ix with *
+    star = findIxOfNextStar(p, ix)
     # if not found check match
+    if star == -1:
+        return current_match(s, p)
     # expand and call main_f_loop with ix+1
     # if prev call returned false, decrement till 0 and return
+
+    return False
 
 
 def findIxOfNextStar(p: list, start_ix) -> int:
@@ -70,13 +74,14 @@ def translate_regex_to_single_tokens(s: str) -> list:
 # print(current_match("abc", ['a', 'b', 'c']))
 # print(current_match("abc", ['.', '.', 'c']))
 # print(current_match("ab", ['a', 'b', 'c']))
-# print(current_match("abc", ['a', 'b']))
 
 print(findIxOfNextStar([('a', 1), ('b', 1), ('c', 1)], 0))
 print(findIxOfNextStar([('a', 1), ('b', 1), ('c', 1)], 1))
 print(findIxOfNextStar(['a', 'b', ('c', 1)], 0))
 print(findIxOfNextStar(['a', 'b', 'c'], 0))
 
+
+print(current_match("ab", ['a', 'b']))
 print(current_match("abc", [('a', 1), ('b', 1), ('c', 1)]))
 print(current_match("abc", [('a', 1), ('b', 1), ('c', 1), ('d', 0)]))
 print(current_match("abc", [('.', 1), ('b', 1), ('c', 1)]))
@@ -86,3 +91,4 @@ print(current_match("abcc", [('.', 2), ('c', 1)]))
 print(current_match("abd", [('.', 2), ('c', 1)]))
 print(current_match("abc", [('.', 2), ('c', 2)]))
 print(current_match("abc", [('.', 2), ('b', 1), ('c', 1)]))
+print(current_match("abc", ['a', 'b']))
