@@ -1,7 +1,8 @@
 def isMatch(s: str, p: str) -> bool:
     if len(s) == 0 and len(p) > 0:
         return False
-    pass
+    pattern = translate_regex_to_single_tokens(p)
+    return main_f_loop(s, pattern, 0)
 
 
 def current_match(s: str, p: list) -> bool:
@@ -39,9 +40,28 @@ def main_f_loop(s: str, p: list, ix: int) -> bool:
     if star == -1:
         return current_match(s, p)
     # expand and call main_f_loop with ix+1
+
     # if prev call returned false, decrement till 0 and return
 
     return False
+
+def expand_star_realization(s: str, p: list, star_ix: int) -> list:
+    # find ix of s (matched value) where current star would start
+    # (sum all *-s values and regular chars in p between 0 and star_ix inclusive)
+    start_match_ix = 7
+
+    #
+    expansion = 0
+    # if s[start_match_ix + expansion] matches
+    # expansion++ else break
+    # set p[star_ix][1] = expansion
+
+    # mmatches - not out of bound of s, if not dot value matches
+
+    return p
+
+
+def
 
 
 def findIxOfNextStar(p: list, start_ix) -> int:
@@ -49,6 +69,7 @@ def findIxOfNextStar(p: list, start_ix) -> int:
         if type(v) is tuple:
             return ix
     return -1
+
 
 def translate_regex_to_single_tokens(s: str) -> list:
     out = []
@@ -64,31 +85,34 @@ def translate_regex_to_single_tokens(s: str) -> list:
 
 
 # type(x) is tuple
-# print(translate_regex_to_single_tokens(".*"))
-# print(translate_regex_to_single_tokens("3*"))
-# print(translate_regex_to_single_tokens("."))
-# print(translate_regex_to_single_tokens(".*a.a.*"))
-# print(translate_regex_to_single_tokens("a*.*"))
+print(translate_regex_to_single_tokens(".*"))
+print(translate_regex_to_single_tokens("3*"))
+print(translate_regex_to_single_tokens("."))
+print(translate_regex_to_single_tokens(".*a.a.*"))
+print(translate_regex_to_single_tokens("a*.*"))
 
 # print(current_match("", []))
 # print(current_match("abc", ['a', 'b', 'c']))
 # print(current_match("abc", ['.', '.', 'c']))
 # print(current_match("ab", ['a', 'b', 'c']))
 
-print(findIxOfNextStar([('a', 1), ('b', 1), ('c', 1)], 0))
-print(findIxOfNextStar([('a', 1), ('b', 1), ('c', 1)], 1))
-print(findIxOfNextStar(['a', 'b', ('c', 1)], 0))
-print(findIxOfNextStar(['a', 'b', 'c'], 0))
+# print(findIxOfNextStar([('a', 1), ('b', 1), ('c', 1)], 0))
+# print(findIxOfNextStar([('a', 1), ('b', 1), ('c', 1)], 1))
+# print(findIxOfNextStar(['a', 'b', ('c', 1)], 0))
+# print(findIxOfNextStar(['a', 'b', 'c'], 0))
+#
+# print(current_match("ab", ['a', 'b']))
+# print(current_match("abc", [('a', 1), ('b', 1), ('c', 1)]))
+# print(current_match("abc", [('a', 1), ('b', 1), ('c', 1), ('d', 0)]))
+# print(current_match("abc", [('.', 1), ('b', 1), ('c', 1)]))
+# print(current_match("abc", [('.', 2), ('c', 1)]))
+#
+# print(current_match("abcc", [('.', 2), ('c', 1)]))
+# print(current_match("abd", [('.', 2), ('c', 1)]))
+# print(current_match("abc", [('.', 2), ('c', 2)]))
+# print(current_match("abc", [('.', 2), ('b', 1), ('c', 1)]))
+# print(current_match("abc", ['a', 'b']))
 
-
-print(current_match("ab", ['a', 'b']))
-print(current_match("abc", [('a', 1), ('b', 1), ('c', 1)]))
-print(current_match("abc", [('a', 1), ('b', 1), ('c', 1), ('d', 0)]))
-print(current_match("abc", [('.', 1), ('b', 1), ('c', 1)]))
-print(current_match("abc", [('.', 2), ('c', 1)]))
-
-print(current_match("abcc", [('.', 2), ('c', 1)]))
-print(current_match("abd", [('.', 2), ('c', 1)]))
-print(current_match("abc", [('.', 2), ('c', 2)]))
-print(current_match("abc", [('.', 2), ('b', 1), ('c', 1)]))
-print(current_match("abc", ['a', 'b']))
+print(isMatch("abc", "abc"))
+print(isMatch("ab", "abc"))
+print(isMatch("ab", "a"))
