@@ -61,9 +61,6 @@ def expand_star_realization(s: str, p: list, star_ix: int) -> list:
     return p
 
 
-def
-
-
 def findIxOfNextStar(p: list, start_ix) -> int:
     for ix, v in enumerate(p, start_ix):
         if type(v) is tuple:
