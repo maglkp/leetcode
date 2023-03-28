@@ -35,34 +35,52 @@ def current_match(s: str, p: list) -> bool:
 
 def main_f_loop(s: str, p: list, ix: int) -> bool:
     # find ix with *
-    star = findIxOfNextStar(p, ix)
+    star_ix = findIxOfNextStar(p, ix)
+
     # if not found check match
-    if star == -1:
+    if star_ix == -1:
         return current_match(s, p)
+
     # expand and call main_f_loop with ix+1
+    # for all values of expansion starting with max possible and decrementing by 1 if match not found
+    max_expansion = get_max_star_expansion(s, p, star_ix)
+
+    # check match here?
+    #if current_match(s, p):
+    #    return True
 
     # if prev call returned false, decrement till 0 and return
-
+    for expanded_star_cardinality in reversed(range(max_expansion + 1)):
+        p[star_ix] = (p[star_ix][0], expanded_star_cardinality)
+        possible_match = main_f_loop(s, p, star_ix + 1)
+        if possible_match:
+            return True
     return False
 
-def expand_star_realization(s: str, p: list, star_ix: int) -> list:
+
+def get_max_star_expansion(s: str, p: list, star_ix: int) -> int:
     # find ix of s (matched value) where current star would start
-    # (sum all *-s values and regular chars in p between 0 and star_ix inclusive)
-    start_match_ix = 7
+    # (sum all *-s values and regular chars in p between 0 and star_ix exclusive)
+    start_match_ix = 0
+    for i in range(star_ix):
+        if type(p[i]) is tuple:
+            start_match_ix += p[i][1]
+        else:
+            start_match_ix += 1
 
-    #
-    expansion = 0
-    # if s[start_match_ix + expansion] matches
-    # expansion++ else break
-    # set p[star_ix][1] = expansion
-
-    # mmatches - not out of bound of s, if not dot value matches
-
-    return p
+    # current star cardinality should always be zero
+    assert p[star_ix][1] == 0
+    star_cardinality = 0
+    char_to_match = p[star_ix][0]
+    # start_ix is index in p and not s!
+    while star_ix + star_cardinality < len(s) and \
+            (char_to_match == '.' or s[star_ix + star_cardinality] == char_to_match):
+        star_cardinality += 1
+    return star_cardinality
 
 
 def findIxOfNextStar(p: list, start_ix) -> int:
-    for ix, v in enumerate(p, start_ix):
+    for ix, v in enumerate(p[start_ix:], start_ix):
         if type(v) is tuple:
             return ix
     return -1
@@ -82,11 +100,11 @@ def translate_regex_to_single_tokens(s: str) -> list:
 
 
 # type(x) is tuple
-print(translate_regex_to_single_tokens(".*"))
-print(translate_regex_to_single_tokens("3*"))
-print(translate_regex_to_single_tokens("."))
-print(translate_regex_to_single_tokens(".*a.a.*"))
-print(translate_regex_to_single_tokens("a*.*"))
+# print(translate_regex_to_single_tokens(".*"))
+# print(translate_regex_to_single_tokens("3*"))
+# print(translate_regex_to_single_tokens("."))
+# print(translate_regex_to_single_tokens(".*a.a.*"))
+# print(translate_regex_to_single_tokens("a*.*"))
 
 # print(current_match("", []))
 # print(current_match("abc", ['a', 'b', 'c']))
@@ -110,6 +128,10 @@ print(translate_regex_to_single_tokens("a*.*"))
 # print(current_match("abc", [('.', 2), ('b', 1), ('c', 1)]))
 # print(current_match("abc", ['a', 'b']))
 
-print(isMatch("abc", "abc"))
-print(isMatch("ab", "abc"))
-print(isMatch("ab", "a"))
+# print(isMatch("abc", "abc"))
+# print(isMatch("ab", "abc"))
+# print(isMatch("ab", "a"))
+
+# print(isMatch("aa", ".*"))
+# print(isMatch("aa", "a*"))
+print(isMatch("aab", "c*a*b"))
