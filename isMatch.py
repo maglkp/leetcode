@@ -27,8 +27,8 @@ def current_match(s: str, p: list) -> bool:
             s_ix += 1
         elif s_ix < len(s) and pattern_segment == s[s_ix]:
             s_ix += 1
-        # else:
-        #    return False
+        else:
+            return False
 
     return s_ix == len(s)
 
@@ -46,7 +46,7 @@ def main_f_loop(s: str, p: list, ix: int) -> bool:
     max_expansion = get_max_star_expansion(s, p, star_ix)
 
     # check match here?
-    #if current_match(s, p):
+    # if current_match(s, p):
     #    return True
 
     # if prev call returned false, decrement till 0 and return
@@ -73,8 +73,8 @@ def get_max_star_expansion(s: str, p: list, star_ix: int) -> int:
     star_cardinality = 0
     char_to_match = p[star_ix][0]
     # start_ix is index in p and not s!
-    while star_ix + star_cardinality < len(s) and \
-            (char_to_match == '.' or s[star_ix + star_cardinality] == char_to_match):
+    while start_match_ix + star_cardinality < len(s) and \
+            (char_to_match == '.' or s[start_match_ix + star_cardinality] == char_to_match):
         star_cardinality += 1
     return star_cardinality
 
@@ -127,6 +127,7 @@ def translate_regex_to_single_tokens(s: str) -> list:
 # print(current_match("abc", [('.', 2), ('c', 2)]))
 # print(current_match("abc", [('.', 2), ('b', 1), ('c', 1)]))
 # print(current_match("abc", ['a', 'b']))
+# print(current_match("ab", ['a', 'a', 'a', '.']))
 
 # print(isMatch("abc", "abc"))
 # print(isMatch("ab", "abc"))
@@ -134,4 +135,6 @@ def translate_regex_to_single_tokens(s: str) -> list:
 
 # print(isMatch("aa", ".*"))
 # print(isMatch("aa", "a*"))
-print(isMatch("aab", "c*a*b"))
+# print(isMatch("aab", "c*a*b"))
+# print(isMatch("b", "aaa."))
+print(isMatch("aaaaaaaaaaaaaaaaaaab", "a*a*a*a*a*a*a*a*a*a*"))
