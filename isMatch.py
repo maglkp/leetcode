@@ -137,4 +137,7 @@ def translate_regex_to_single_tokens(s: str) -> list:
 # print(isMatch("aa", "a*"))
 # print(isMatch("aab", "c*a*b"))
 # print(isMatch("b", "aaa."))
+
+# this times out due to the alg being 'greedy first and then backoff' instead of being reluctant
+# and try 0-length star match first
 print(isMatch("aaaaaaaaaaaaaaaaaaab", "a*a*a*a*a*a*a*a*a*a*"))
