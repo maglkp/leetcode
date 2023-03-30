@@ -140,5 +140,7 @@ def translate_regex_to_single_tokens(s: str) -> list:
 
 # this times out due to the alg being 'greedy first and then backoff' or 'reluctant' in DFS style
 # and having a non-matched simple char at the end
+# problems is that essentialy we need to iterate + recurse due to problems when both greedy and reluctant will
+# fail at first like "a*a" "aa"
 print(isMatch("aaaaaaaaaaaaaaaaaaab", "a*a*a*a*a*a*a*a*a*a*"))
 #print(isMatch("aaab", "a*a*"))
