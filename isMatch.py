@@ -138,6 +138,7 @@ def translate_regex_to_single_tokens(s: str) -> list:
 # print(isMatch("aab", "c*a*b"))
 # print(isMatch("b", "aaa."))
 
-# this times out due to the alg being 'greedy first and then backoff' instead of being reluctant
-# and try 0-length star match first
+# this times out due to the alg being 'greedy first and then backoff' or 'reluctant' in DFS style
+# and having a non-matched simple char at the end
 print(isMatch("aaaaaaaaaaaaaaaaaaab", "a*a*a*a*a*a*a*a*a*a*"))
+#print(isMatch("aaab", "a*a*"))
