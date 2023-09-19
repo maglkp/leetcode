@@ -1,3 +1,8 @@
+# https://leetcode.com/problems/3sum-closest
+# similar to twoSum but doesn't stop if ideal element is found, usually there won't be one
+# take current element and rest of array to its right, get the best triple for it and replace if current best
+
+# todo look at "We can adapt the 3Sum Smaller: Binary Search approach to this problem." editorial for problem 259
 from typing import List
 
 
