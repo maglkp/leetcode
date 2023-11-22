@@ -30,7 +30,6 @@ class Solution:
         # take the first element, append it to output list
         next_e = lists[0]
         current_output.next = next_e
-        # current_output = next_e
 
         # remove first list from lists
         head_list = lists.pop(0)
@@ -39,10 +38,22 @@ class Solution:
         # and insert the tail according to its first element value
         if head_list.next is not None:
             new_list = head_list.next
-            # new_list_val = new_list.val
+            new_list_val = new_list.val
 
-        # goto 2
-        # self.take_and_continue(lists, next_e)
+            ix = 0
+            is_less = False
+            for ix, head_node in enumerate(lists):
+                if new_list_val < head_node.val:
+                    is_less = True
+                    break
+
+            if is_less:
+                lists.insert(ix, new_list)
+            else:
+                lists.append(new_list)
+
+        # continue
+        self.take_and_continue(lists, next_e)
 
     def lower_head(self, x: Optional[ListNode], y: Optional[ListNode]):
         # empty elements go first
@@ -55,12 +66,13 @@ class Solution:
 
 s = Solution()
 # lists = [[1, 4, 5], [1, 3, 4], [2, 6]]
-list1 = ListNode(10, ListNode(4, ListNode(5)))
+list1 = ListNode(1, ListNode(4, ListNode(5)))
 list2 = ListNode(1, ListNode(3, ListNode(4)))
 list3 = ListNode(2, ListNode(6))
 lists = [list1, list2, list3]
 
-print(s.mergeKLists(lists))
+k_lists = s.mergeKLists(lists)
+print(k_lists)
 
 # lists.sort(key=lower_head)
 # lists = sorted(lists, key=cmp_to_key(lower_head))
