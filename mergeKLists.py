@@ -12,11 +12,45 @@ class ListNode:
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         # 1 sort lists as it is with custom method
-        # 2 [if there is stuff left] take the first element, append it to output list
-        # 3 remove first list from lists
-        # 4 insert that list according to its first element value
+        lists.sort(key=cmp_to_key(self.lower_head))
+        dummy = ListNode()
+        self.take_and_continue(lists, dummy)
+
+        return dummy.next
+
+    def take_and_continue(self, lists: List[Optional[ListNode]], current_output: ListNode) -> Optional[ListNode]:
+        # remove empty lists
+        #lists = list(filter(lists, lambda e: e is not None))
+        lists = [e for e in lists if e is not None]
+
+        # if no stuff left return
+        if len(lists) == 0:
+            return
+
+        # take the first element, append it to output list
+        next_e = lists[0]
+        current_output.next = next_e
+        # current_output = next_e
+
+        # remove first list from lists
+        head_list = lists.pop(0)
+
+        # if there is still stuff in that list, remove element we just added
+        # and insert the tail according to its first element value
+        if head_list.next is not None:
+            new_list = head_list.next
+            # new_list_val = new_list.val
+
         # goto 2
-        pass
+        # self.take_and_continue(lists, next_e)
+
+    def lower_head(self, x: Optional[ListNode], y: Optional[ListNode]):
+        # empty elements go first
+        if x is None:
+            return 1
+        if y is None:
+            return -1
+        return x.val - y.val
 
 
 s = Solution()
@@ -26,19 +60,10 @@ list2 = ListNode(1, ListNode(3, ListNode(4)))
 list3 = ListNode(2, ListNode(6))
 lists = [list1, list2, list3]
 
-
-# print(s.mergeKLists(lists))
-
-def lower_head(x: Optional[ListNode], y: Optional[ListNode]):
-    if x is None:
-        return -1
-    if y is None:
-        return 1
-    return x.val - y.val
-
+print(s.mergeKLists(lists))
 
 # lists.sort(key=lower_head)
-#lists = sorted(lists, key=cmp_to_key(lower_head))
-lists.sort(key=cmp_to_key(lower_head))
+# lists = sorted(lists, key=cmp_to_key(lower_head))
+
 
 print(lists[0].val)
