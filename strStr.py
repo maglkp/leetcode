@@ -3,20 +3,26 @@ from typing import List
 
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        write_ix = 0
-        last_value = None
+        needle_ix = 0
+        haystack_ix = 0
+        while haystack_ix < len(haystack):
+            if haystack[haystack_ix] == needle[needle_ix]:
+                if needle_ix == len(needle) - 1:
+                    return haystack_ix - needle_ix
+                else:
+                    needle_ix += 1
 
-        for element in nums:
-            if last_value != element:
-                last_value = element
-                nums[write_ix] = element
-                write_ix += 1
+                haystack_ix += 1
+            else:
+                haystack_ix -= needle_ix - 1
+                needle_ix = 0
 
-        return write_ix
+
+        return -1
 
 
 s = Solution()
-haystack = "sadbutsad"
-needle = "sad"
+haystack = "mississippi"
+needle = "issip"
 k = s.strStr(haystack, needle)
 print(k)
