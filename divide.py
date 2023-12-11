@@ -1,3 +1,6 @@
+# log(div) time (or log_base_divisor(div) time)
+# expand divisor exponentially until next expand would go beyond dividend
+# subtract, note how many divisors were used, try again from divisor**1 until all dividend used up
 import time
 
 
