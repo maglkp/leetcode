@@ -1,3 +1,6 @@
+# O(nk) n - num of all elements, k - num of lists
+# can knock it down to O(nlogk) if logk insertion is used using priority queues
+
 from typing import Optional, List
 from functools import cmp_to_key
 
