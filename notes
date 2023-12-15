@@ -1,0 +1,13 @@
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        pattern_len = len(words) * len(words[0])
+        if pattern_len > len(s):
+            return []
+        solutions = []
+
+        word_locations = self.createWordLocationMap(s[:pattern_len])
+
+        return solutions
+
+    # {'ab': [0, 6]}
+    def createWordLocationMap(self, s: str) -> Dict:
+        return None
