@@ -44,7 +44,7 @@ class Solution:
                         word_locations[word_candidate].append(last_token_location_in_pattern)
 
             # check if we have a solution
-            # todo - need to exclude all indexes which are NOT the multiple of token_len to exclude overlapping ones
+            # need to exclude all indexes which are NOT the multiple of token_len to exclude overlapping ones
             if self.locations_map_has_all_tokens(word_locations, words_dict, token_len):
                 solutions.append(i)
 
