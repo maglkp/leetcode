@@ -9,6 +9,7 @@ class Solution:
         if k == 0:
             return
 
+        # the first branch is covered by the second so is only here for documentation of a simpler case
         if len(nums) % k == 0:
             for start_ix in range(k):
                 ix = start_ix
@@ -42,7 +43,7 @@ class Solution:
 
 
 nums = [1, 2, 3, 4, 5, 6]
-k = 4
+k = 3
 s = Solution()
 s.rotate(nums, k)
 print(nums)
