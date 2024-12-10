@@ -1,6 +1,7 @@
 # https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
 # use the same set that does not reset, only grow and shrink it as needed
+# passed all LC but seems to be wrong - instead of shrink by 1 should shrink until no dups
 def lengthOfLongestSubstring(s: str) -> int:
     longest_len = 0
     current = set()
@@ -47,4 +48,4 @@ def lengthOfLongestSubstringSlowWithReset(s: str) -> int:
     return longest_len
 
 
-print(lengthOfLongestSubstring("dvdf"))
+print(lengthOfLongestSubstring("dvdfabcd"))
