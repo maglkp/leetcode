@@ -2,7 +2,9 @@ from typing import List
 from collections import deque
 import re
 
-
+# should only have 1 recursive method
+# should only have 1 branch per +/- or (
+# can have 1 stack only
 class Solution:
 
     def calculate(self, s: str) -> int:
