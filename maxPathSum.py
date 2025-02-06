@@ -11,6 +11,26 @@ class TreeNode:
 
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        max_val = [root.val]
+
+        def dfs(node):
+            if not node:
+                return 0
+
+            left = max(0, dfs(node.left))
+            right = max(0, dfs(node.right))
+
+            max_val[0] = max(max_val[0],
+                             node.val + left + right,
+                             node.val + left, node.val + right,
+                             node.val)
+
+            return node.val + max(left, right)
+
+        dfs(root)
+        return max_val[0]
+
+    def maxPathSum1(self, root: Optional[TreeNode]) -> int:
         path = self.maxPath(root)
         return max(path)
 
@@ -36,13 +56,7 @@ class Solution:
         current = max(node.val + downstream_left[0], node.val + downstream_right[0])
         max_downstream = max(downstream_left[1],
                              downstream_right[1],
-                             downstream_left[0] +  downstream_right[0] + node.val,
+                             downstream_left[0] + downstream_right[0] + node.val,
                              node.val,
                              current)
         return current, max_downstream
-
-
-
-
-
-
