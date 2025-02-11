@@ -21,9 +21,7 @@ class Solution:
             right = max(0, dfs(node.right))
 
             max_val[0] = max(max_val[0],
-                             node.val + left + right,
-                             node.val + left, node.val + right,
-                             node.val)
+                             node.val + left + right)
 
             return node.val + max(left, right)
 
