@@ -1,9 +1,36 @@
 from typing import List
-from collections import deque
+from collections import deque, defaultdict
 
 
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+
+        banksy = set(wordList)
+        pattern_map = defaultdict(list)
+        for word in banksy:
+            for i in range(len(word)):
+                pattern = word[:i] + "*" + word[i + 1:]
+                pattern_map[pattern].append(word)
+        q = deque()
+
+        q.append((beginWord, 1))
+        visited = set()
+        while q:
+            current_word, step = q.popleft()
+            if current_word == endWord:
+                return step
+
+            for i in range(len(current_word)):
+                pattern = current_word[:i] + "*" + current_word[i + 1:]
+                for next_word in pattern_map[pattern]:
+                    if next_word not in visited:
+                        visited.add(next_word)
+                        q.append((next_word, step + 1))
+
+        return 0
+
+
+    def ladderLength_naive(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
 
         def is_diff_1(word1, word2):
             diffs = 0
@@ -32,6 +59,11 @@ class Solution:
 beginWord = "hit"
 endWord = "cog"
 wordList = ["hot", "dot", "dog", "lot", "log", "cog"]
+
+beginWord = "hit"
+endWord = "hit"
+wordList = ["hit", "dot", "dog", "lot", "log", "cog"]
+
 
 s = Solution()
 print(s.ladderLength(beginWord, endWord, wordList))
