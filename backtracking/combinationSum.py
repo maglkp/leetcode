@@ -1,4 +1,3 @@
-# 25 min
 from typing import List
 
 
