@@ -33,30 +33,54 @@ class Solution:
 
         left = self.mergeSort(node, q)
         right = self.mergeSort(right, data_len - q)
-        return self.merge(left, right)
+        return self.merge_no_dummy(left, right)
 
     def merge(self, left: ListNode, right: ListNode) -> ListNode:
-
         fake = ListNode()
-        head = fake
+        node = fake
 
-        while left or right:
-            if left and right:
-                if left.val < right.val:
-                    head.next = left
-                    left = left.next
-                else:
-                    head.next = right
-                    right = right.next
-            elif left:
-                head.next = left
+        while left and right:
+            if left.val < right.val:
+                node.next = left
                 left = left.next
             else:
-                head.next = right
+                node.next = right
                 right = right.next
-            head = head.next
+            node = node.next
 
+        node.next = left or right
         return fake.next
+
+    def merge_no_dummy(self, left: ListNode, right: ListNode) -> ListNode:
+        if not left:
+            return right
+        if not right:
+            return left
+
+        # Initialize head to the smaller of the two nodes
+        if left.val < right.val:
+            head = left
+            left = left.next
+        else:
+            head = right
+            right = right.next
+
+        current = head
+
+        while left and right:
+            if left.val < right.val:
+                current.next = left
+                left = left.next
+            else:
+                current.next = right
+                right = right.next
+            current = current.next
+
+        # Attach the remaining part
+        current.next = left if left else right
+
+        return head
+
 
 s = Solution()
 head = ListNode(4, ListNode(2))
