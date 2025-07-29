@@ -1,3 +1,7 @@
+# if str no conversion is advised get k-th digit with
+# L = log(n, 10)
+# mod and div...
+
 def isPalindrome(x: int) -> bool:
     s = str(x)
     i = 0
@@ -8,3 +12,6 @@ def isPalindrome(x: int) -> bool:
             return False
         i += 1
     return True
+
+
+
