@@ -1,4 +1,5 @@
-# using constant O(1) space only :)
+# using constant O(1) space only...
+# not really, with call stack it becomes O(n+m) for stack and O(n*m) for memo
 
 class Solution:
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
@@ -34,18 +35,10 @@ class Solution:
         if c1 != c3 and c2 != c3:
             return False
 
-        if c1 == c3:
-            take_from_s1 = self.is_interleave_dp(s1, s2, s3, s1_idx + 1, s2_idx, s3_idx + 1, bad_paths)
-            if not take_from_s1:
-                bad_paths.add((s1_idx + 1, s2_idx))
-            else:
-                return True
-        if c2 == c3:
-            take_from_s2 = self.is_interleave_dp(s1, s2, s3, s1_idx, s2_idx + 1, s3_idx + 1, bad_paths)
-            if not take_from_s2:
-                bad_paths.add((s1_idx, s2_idx + 1))
-            else:
-                return True
+        if c1 == c3 and self.is_interleave_dp(s1, s2, s3, s1_idx + 1, s2_idx, s3_idx + 1, bad_paths):
+            return True
+        if c2 == c3 and self.is_interleave_dp(s1, s2, s3, s1_idx, s2_idx + 1, s3_idx + 1, bad_paths):
+           return True
 
         bad_paths.add((s1_idx, s2_idx))
         return False
