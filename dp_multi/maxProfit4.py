@@ -1,35 +1,38 @@
+#from functools import lru_cache
 from typing import List
 
 
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
-        return self.max_profit(prices, False, k, 0, {})
+        k = min(k, len(prices) // 2)
+        return self.max_profit(prices, 0, False, k, 0, {})
 
-    def max_profit(self, prices: List[int], is_holding: bool, transactions_left: int, buy_value: int,
+    #@lru_cache(maxsize=None)
+    def max_profit(self, prices: List[int], ix: int, is_holding: bool, transactions_left: int, buy_value: int,
                    memo: dict) -> int:
-        if transactions_left == 0 or len(prices) == 0:
+        if transactions_left == 0 or ix == len(prices):
             return 0
 
-        key = (buy_value, transactions_left, is_holding, len(prices))
+        key = (buy_value, transactions_left, is_holding, ix)
         if key in memo:
             return memo[key]
 
         if is_holding:
             # sell now
-            sell = prices[0] - buy_value
+            sell = prices[ix] - buy_value
             if sell > 0:
-                sell += self.max_profit(prices[1:], False, transactions_left - 1, 0, memo)
+                sell += self.max_profit(prices, ix + 1, False, transactions_left - 1, 0, memo)
 
             # keep holding
-            keep = self.max_profit(prices[1:], True, transactions_left, buy_value, memo)
+            keep = self.max_profit(prices, ix + 1, True, transactions_left, buy_value, memo)
             memo[key] = max(sell, keep)
             return memo[key]
         else:
             # buy now
-            buy = self.max_profit(prices[1:], True, transactions_left, prices[0], memo)
+            buy = self.max_profit(prices, ix + 1, True, transactions_left, prices[ix], memo)
 
             # skip
-            skip = self.max_profit(prices[1:], False, transactions_left, 0, memo)
+            skip = self.max_profit(prices, ix + 1, False, transactions_left, 0, memo)
 
             memo[key] = max(buy, skip)
             return memo[key]
