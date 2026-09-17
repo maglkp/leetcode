@@ -1,5 +1,5 @@
 # https://leetcode.com/problems/3sum/
-# O(n^2)
+
 # threeSumHashMap
 # create a map sumValue -> list of (ix1, ix2) [avoiding duplicates]
 # iterate over items and try to find matching 3sum-s to sum to 0 total
@@ -12,8 +12,46 @@ import time
 
 start = time.time()
 
+from typing import List
 
 def threeSum(self, nums: List[int]) -> List[List[int]]:
+    nums.sort()
+    result: List[List[int]] = []
+    n = len(nums)
+
+    for i in range(n - 2):
+        a = nums[i]
+
+        if a > 0:
+            break
+
+        if i > 0 and a == nums[i - 1]:
+            continue
+
+        left, right = i + 1, n - 1
+
+        while left < right:
+            total = a + nums[left] + nums[right]
+
+            if total < 0:
+                left += 1
+            elif total > 0:
+                right -= 1
+            else:
+                result.append([a, nums[left], nums[right]])
+
+                left += 1
+                right -= 1
+
+                while left < right and nums[left] == nums[left - 1]:
+                    left += 1
+
+                while left < right and nums[right] == nums[right + 1]:
+                    right -= 1
+
+    return result
+
+def threeSum_unoptimized(self, nums: List[int]) -> List[List[int]]:
     nums.sort()
     sum3s = []
     for ix, num in enumerate(nums):
@@ -167,15 +205,16 @@ nums = [82597,-9243,62390,83030,-97960,-26521,-61011,83390,-38677,12333,75987,46
 #         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 #         0, 0, 0]
 
-nums = [0, 1, 1]
-nums = [0, 0, 0]
-nums = [-1, 0, 1, 2, -1, -4]
-nums = [-2, 0, 1, 1, 2]
+# nums = [0, 1, 1]
+# nums = [0, 0, 0]
+# nums = [-1, 0, 1, 2, -1, -4]
+# nums = [-2, 0, 1, 1, 2]
 
 
 print(threeSum("", nums))
+#print(threeSumHashMap("", nums))
 
 end = time.time()
 
-print("The time of execution of above program is :",
+print("The time is:",
       (end - start) * 10 ** 3, "ms")
