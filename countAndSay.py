@@ -36,6 +36,31 @@ class Solution:
 
         return str(new)
 
+    def countAndSayIdiomatic(self, n: int) -> str:
+        if n == 1:
+            return "1"
+
+        curr = "1"
+
+        for _ in range(n - 1):
+            next_val = []
+            count = 1
+
+            for j in range(1, len(curr)):
+                if curr[j] == curr[j - 1]:
+                    count += 1
+                else:
+                    next_val.append(str(count))
+                    next_val.append(curr[j - 1])
+                    count = 1
+
+            # Flush the final sequence
+            next_val.append(str(count))
+            next_val.append(curr[-1])
+
+            curr = "".join(next_val)
+
+        return curr
 
 
 s = Solution()
