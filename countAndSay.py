@@ -5,12 +5,13 @@ class Solution:
 
         if n == 1:
             return "1"
+        if n == 2:
+            return "11"
 
         curr = [(1, 1)]
         new = []
 
         for i in range(n - 2):
-            curr = new
             new = []
             acc = 0
             for j in range(len(curr) + 1):
@@ -31,6 +32,7 @@ class Solution:
                         new.append((1, v))
                         acc = 0
                         # acc = curr[j][1]
+            curr = new
 
         return str(new)
 
